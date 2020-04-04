@@ -1,22 +1,63 @@
-{
-  "books": [
-    {
-      "reviews": [
-        { "content": "i liked it", "rating": 4 },
-        { "rating": "3", "content": "great" },
-        { "rating": "1", "content": "hated it" },
-        { "rating": "10", "content": "srofgu" }
-      ],
-      "id": 1,
-      "title": "Good Book about Javascript"
-    },
-    {
-      "title": "Book about Ruby",
-      "reviews": [{ "rating": "3", "content": "hello" }],
-      "id": 2
-    },
-    { "title": "Book about Ruby", "reviews": [], "id": 4 },
-    { "title": "Book about Ruby", "reviews": [], "id": 5 },
-    { "title": "Book about Ruby", "reviews": [], "id": 6 }
-  ]
-}
+
+
+        {
+            "movies": [
+                {
+                    "id": 1,
+                    "title": "Jurassic Park",
+                    "ageRating": "12",
+                    "duration": 120,
+                    "comments": "Dinosaur, scream adventure",
+                    "times": [
+                        "12:00",
+                        "14:20",
+                        "16:40",
+                        "19:00",
+                        "21:20"
+                    ],
+                    "seating": {
+                        "rows": ["A","B","C","D","E","F","G"],
+                        "seats": [1,2,3,4,5,6,7,8,9]
+                    },
+                    "ticketsSold": [
+                        {
+                            "time": "14:20",
+                            "seat": "B20"
+                        },
+                        {
+                            "time": "14:20",
+                            "seat": "B21"
+                        }
+                    ]
+                },
+
+                {
+                    "id": 2,
+                    "title": "Mr.Bean",
+                    "ageRating": "12",
+                    "duration": 120,
+                    "comments": "Silly old man messing around",
+                    "times": [
+                        "13:00",
+                        "15:20",
+                        "17:40",
+                        "19:00",
+                        "21:20"
+                    ],
+                    "seating": {
+                        "rows": ["A","B","C","D","E","F","G"],
+                        "seats": [1,2,3,4,5,6,7,8,9]},
+                        
+                    "ticketsSold": [
+                        {
+                            "time": "15:20",
+                            "seat": "B2"
+                        },
+                        {
+                            "time": "15:20",
+                            "seat": "B21"
+                        }
+                    ]
+                }
+            ]
+        }
