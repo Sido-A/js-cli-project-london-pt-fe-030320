@@ -5,7 +5,7 @@
                 {
                     "id": 1,
                     "title": "Jurassic Park",
-                    "ageRating": "12",
+                    "ageRating": "16",
                     "duration": 120,
                     "comments": "Dinosaur, scream adventure",
                     "times": [
@@ -35,7 +35,7 @@
                     "id": 2,
                     "title": "Mr.Bean",
                     "ageRating": "12",
-                    "duration": 120,
+                    "duration": 70,
                     "comments": "Silly old man messing around",
                     "times": [
                         "13:00",
@@ -48,6 +48,49 @@
                         "rows": ["A","B","C","D","E","F","G"],
                         "seats": [1,2,3,4,5,6,7,8,9]},
                         
+                    "ticketsSold": [
+                        {
+                            "time": "15:20",
+                            "seat": "B2"
+                        },
+                        {
+                            "time": "15:20",
+                            "seat": "B21"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "title": "Shrek",
+                    "ageRating": "12",
+                    "duration": 45,
+                    "comments": "A miserable org marry to another org",
+                    "times": [
+                        "15:20",
+                        "17:30"
+                    ],
+                    "seating": {
+                        "rows": [
+                            "A",
+                            "B",
+                            "C",
+                            "D",
+                            "E",
+                            "F",
+                            "G"
+                        ],
+                        "seats": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7,
+                            8,
+                            9
+                        ]
+                    },
                     "ticketsSold": [
                         {
                             "time": "15:20",

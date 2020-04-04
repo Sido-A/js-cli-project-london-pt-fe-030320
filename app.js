@@ -3,7 +3,7 @@ const readlineSync = require("readline-sync");
 
 
 
-// user choose a movie from option
+// user choose a movie from the option
 const chooseAMovie = (movies) =>{
 
 // show list of each movies
@@ -13,7 +13,7 @@ const chooseAMovie = (movies) =>{
 
   //user selection for movie
   console.log("                       ") // blank between question
-  const chooseOne = readlineSync.questionInt("Choose the number of movie you want to watch: ")
+  const chooseOne = readlineSync.questionInt("Choose the number of the movie you want to watch: ")
   console.log("----------------------------------------------") // blank between question
 
 
@@ -34,46 +34,39 @@ const chooseAMovie = (movies) =>{
   
 }
 
+let whatTime = [];
 
-// user choose the time from the movie they have chosen
+// user choose the screen time from the movie they have chosen
 const chooseATime = (movies,chooseOne) => {
-  let whatTime = [];
   for (const movie of movies) {
     if (movie.id === chooseOne) {
       // user selection for screen time
       whatTime = readlineSync.keyInSelect(movie.times, "What time do you want to watch?: ")   
       console.log("                                 ") // blank between question
-      
-
-      // update selected time to ticketsSold but only update time
-      // movie.ticketsSold.push({
-      //   time: movie.times[whatTime]
-      // });
-      // API.update("movies",movie)
-
     } 
- }
+ } // end of for loop
+
+ // cancel button go back to movie list
   if (whatTime === -1) {
     chooseAMovie(movies);
    }
-  // const time = API.read("movies", whatTime);
-  // console.log(time);
   else if (whatTime !== undefined) {
     chooseARow(movies, chooseOne);
    }
     
 }
 
+
+let whichRows = [];
 const chooseARow = (movies, chooseOne) => {
-  let whichRows = [];
 
   console.log("    ---------------------- SCREEN ----------------------- ")
-  console.log("                                                       ")
+  console.log(" ")
   console.log("ROW  A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9")
   console.log("ROW  B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9")
   console.log("ROW  C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9")
   console.log("ROW  D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9")
-  console.log("                                                       ")
+  console.log(" ")
   console.log("ROW  E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9")
   console.log("ROW  F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9")
   console.log("ROW  G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9")
@@ -83,23 +76,10 @@ const chooseARow = (movies, chooseOne) => {
   for (const movie of movies) {    
     if (movie.id === chooseOne) {
        whichRows = readlineSync.keyInSelect(movie.seating.rows, "Which ROW do you want?: ")
-       // update the date to db.json
-       //but it shows like {row: A}...
-      // movie.ticketsSold.push({
-      //   seat: movie.seating.rows[whichRows]
-      // });
-      // API.update("movies", movie)                                                
+    }    
+  } // end of for loop
 
-
-      //  whichSeat = readlineSync.keyInSelect(movie.seating.seats, "Which seat do you want?: ")
-      // console.log(`Your seat is ${movie.seating.rows[whichRows]}:${movie.seating.seats[whichSeat]}`);  
-    }
-    
-    // const whichRows = API.read("movies", whichRows);
-    
-  }
   if (whichRows === -1) {
-
     chooseAMovie(movies);
 
   } else if (whichRows !== undefined) {
@@ -108,47 +88,76 @@ const chooseARow = (movies, chooseOne) => {
 
 }
 
+let whichSeats = [];
 const chooseASeat = (movies,chooseOne) => {
-  let whichSeats = [];
 
   console.log("---------------------- SCREEN ----------------------- ")
-  console.log("                                                      ")
+  console.log(" ")
   console.log(" SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT ")
   console.log(" A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9")
   console.log(" B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9")
   console.log(" C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9")
   console.log(" D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9")
-  console.log("                                                       ")
-  console.log("E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9")
-  console.log("F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9")
-  console.log("G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9")
+  console.log(" ")
+  console.log(" E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9")
+  console.log(" F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9")
+  console.log(" G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9")
 
 
 
   for (const movie of movies) {
     if (movie.id === chooseOne) {
-      whichSeats = readlineSync.keyInSelect(movie.seating.seats, "Which SEAT do you want?: ")
-
-      //  whichSeat = readlineSync.keyInSelect(movie.seating.seats, "Which seat do you want?: ")
-      // console.log(`Your seat is ${movie.seating.rows[whichRows]}:${movie.seating.seats[whichSeat]}`);  
+      whichSeats = readlineSync.keyInSelect(movie.seating.seats, "Which SEAT do you want?: ");
     }
-
-    const seats = API.read("movies", whichSeats);
-    if (seats !== undefined) {
-      ticketPrice(movies);
-    }
-
   }
-
   if (whichSeats === -1) {
-
     chooseAMovie(movies);
+    
+  } else if (whichSeats !== undefined) {
+    ticketPrice(movies, chooseOne);
   }
 }
 
-const ticketPrice = (movies) => {
-  console.log(`Selected movie `)
-  console.log();
+const ticketPrice = (movies, chooseOne) => {
+
+  console.log("---------------------- SCREEN ----------------------- ")
+  console.log(" ")
+  console.log("A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9")
+  console.log("B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9")
+  console.log("C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9")
+  console.log("D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9")
+  console.log(" ")
+  console.log("E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9")
+  console.log("F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9")
+  console.log("G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9")
+  console.log(" ")
+
+
+  for (const movie of movies) {
+    if (movie.id === chooseOne) {
+      console.log(movie.title);
+      console.log(movie.times[whatTime]);
+      console.log(`${movie.seating.rows[whichRows]}:${movie.seating.seats[whichSeats]}`); 
+      console.log("Ticket price is £15");
+     const continueTo = readlineSync.keyInYN("Do you want to buy?: ");
+    //  if (continueTo) {
+    //    movie.ticketsSold.push(
+    //      {
+    //        time: movie.times[whatTime],
+    //        seat: [movie.seating.rows[whichRows],
+    //       movie.seating.seats[whichSeats]]
+    //      });
+    //    API.update("movies",movie)
+
+    //  } else {
+      // mainMenu();
+      
+    //}
+    }    
+  }
+  console.log(" ")
+  console.log("Thank you for purchasing!")
+  console.log("Have a good movie time!")       
 
 }
 
@@ -185,19 +194,21 @@ const mainMenu = () => {
     mainMenu();
   } 
   else if (choose === "2") {
+
     for (const movie of movies) {
       console.log(`Title: ${movie.title}`);
       console.log(`Age rating: ${movie.ageRating}`);
       console.log(`Duration: ${movie.duration}`);
       console.log(`Comments: ${movie.comments}`);
-      console.log("-------------------------")
-      
-      
+      console.log("-------------------------")  
     }
 
+    const backToMainMenu = readlineSync.question(`Press "0" to go back to main menu: `);
+    
 
-    // const rating = readlineSync.question("What do you think about the movie? ")
-
+    if (backToMainMenu === "0") {
+      mainMenu();
+    }
 
   }
 }
