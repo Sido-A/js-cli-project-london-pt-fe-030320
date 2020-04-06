@@ -18,7 +18,7 @@ const chooseAMovie = (movies) =>{
 
 
   // if the API can't find that movie from chooseOne input
-  // run chooseABook again
+  // run chooseABook again after warning
   const movie = API.read("movies", chooseOne);
   if (movie !== undefined) {
     chooseATime(movies, chooseOne);
@@ -49,7 +49,7 @@ const chooseATime = (movies,chooseOne) => {
  // cancel button go back to movie list
   if (whatTime === -1) {
     chooseAMovie(movies);
-   }
+   } // if time has been chose then go to select seat row
   else if (whatTime !== undefined) {
     chooseARow(movies, chooseOne);
    }
@@ -57,6 +57,7 @@ const chooseATime = (movies,chooseOne) => {
 }
 
 
+// user selection for seat row 
 let whichRows = [];
 const chooseARow = (movies, chooseOne) => {
 
@@ -79,15 +80,19 @@ const chooseARow = (movies, chooseOne) => {
     }    
   } // end of for loop
 
+  // cancel option, go back to movie list
   if (whichRows === -1) {
     chooseAMovie(movies);
 
+    // if row has been selected go to seat selection
   } else if (whichRows !== undefined) {
       chooseASeat(movies, chooseOne);
    }
 
 }
 
+
+// user selection for seat 
 let whichSeats = [];
 const chooseASeat = (movies,chooseOne) => {
 
@@ -110,15 +115,18 @@ const chooseASeat = (movies,chooseOne) => {
       whichSeats = readlineSync.keyInSelect(movie.seating.seats, "Which SEAT do you want?: ");
     }
   }
+
+  // cancel option, go back to movie list
   if (whichSeats === -1) {
     chooseAMovie(movies);
-    
+
+  // if seat has been choose go to confirmation
   } else if (whichSeats !== undefined) {
-    ticketPrice(movies, chooseOne);
+    confirmation(movies, chooseOne);
   }
 }
 
-const ticketPrice = (movies, chooseOne) => {
+const confirmation = (movies, chooseOne) => {
 
   console.log("---------------------- SCREEN ----------------------- ")
   console.log(" ")
@@ -138,24 +146,24 @@ const ticketPrice = (movies, chooseOne) => {
       console.log(movie.title);
       console.log(movie.times[whatTime]);
       console.log(`${movie.seating.rows[whichRows]}:${movie.seating.seats[whichSeats]}`); 
-      console.log("Ticket price is £15");
+      console.log("Ticket price is £5");
+      
      const continueTo = readlineSync.keyInYN("Do you want to buy?: ");
     //  if (continueTo) {
     //    movie.ticketsSold.push(
     //      {
     //        time: movie.times[whatTime],
-    //        seat: [movie.seating.rows[whichRows],
-    //       movie.seating.seats[whichSeats]]
+    //        seat: [movie.seating.rows[whichRows],movie.seating.seats[whichSeats]]
     //      });
     //    API.update("movies",movie)
 
     //  } else {
-      // mainMenu();
+    //   mainMenu();
       
-    //}
+    // }
     }    
   }
-  console.log(" ")
+  console.log(" ") // blank between log
   console.log("Thank you for purchasing!")
   console.log("Have a good movie time!")       
 
