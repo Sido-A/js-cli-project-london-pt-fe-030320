@@ -24,10 +24,10 @@ const chooseAMovie = (movies) =>{
     chooseATime(movies, chooseOne);
   }
   else {
-    console.log("***********************************")
-    console.log("* Sorry we don't have that option *")
-    console.log("* Please choose again from below  *")
-    console.log("***********************************")
+    console.log(`***********************************
+                 * Sorry we don't have that option *
+                 * Please choose again from below  *
+                ***********************************`)
 
     return chooseAMovie(movies);
   }
@@ -61,16 +61,17 @@ const chooseATime = (movies,chooseOne) => {
 let whichRows = [];
 const chooseARow = (movies, chooseOne) => {
 
-  console.log("    ---------------------- SCREEN ----------------------- ")
-  console.log(" ")
-  console.log("ROW  A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9")
-  console.log("ROW  B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9")
-  console.log("ROW  C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9")
-  console.log("ROW  D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9")
-  console.log(" ")
-  console.log("ROW  E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9")
-  console.log("ROW  F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9")
-  console.log("ROW  G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9")
+  console.log(`    
+      ---------------------- SCREEN ----------------------- 
+   
+  ROW  A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9
+  ROW  B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9
+  ROW  C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9
+  ROW  D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9
+   
+  ROW  E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9
+  ROW  F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9
+  ROW  G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9`)
 
 
 
@@ -96,17 +97,18 @@ const chooseARow = (movies, chooseOne) => {
 let whichSeats = [];
 const chooseASeat = (movies,chooseOne) => {
 
-  console.log("---------------------- SCREEN ----------------------- ")
-  console.log(" ")
-  console.log(" SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT ")
-  console.log(" A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9")
-  console.log(" B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9")
-  console.log(" C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9")
-  console.log(" D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9")
-  console.log(" ")
-  console.log(" E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9")
-  console.log(" F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9")
-  console.log(" G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9")
+  console.log(`
+  ---------------------- SCREEN ------------------------ 
+   
+  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT 
+   A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9
+   B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9
+   C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9
+   D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9
+   
+   E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9
+   F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9
+   G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9`)
 
 
 
@@ -127,18 +129,18 @@ const chooseASeat = (movies,chooseOne) => {
 }
 
 const confirmation = (movies, chooseOne) => {
-
-  console.log("---------------------- SCREEN ----------------------- ")
-  console.log(" ")
-  console.log("A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9")
-  console.log("B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9")
-  console.log("C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9")
-  console.log("D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9")
-  console.log(" ")
-  console.log("E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9")
-  console.log("F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9")
-  console.log("G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9")
-  console.log(" ")
+  console.log(`
+  ---------------------- SCREEN ---------------------
+              
+  A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9
+  B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9
+  C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9
+  D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9
+    
+  E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9
+  F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9
+  G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9
+               `)
 
 
   for (const movie of movies) {
@@ -147,8 +149,20 @@ const confirmation = (movies, chooseOne) => {
       console.log(movie.times[whatTime]);
       console.log(`${movie.seating.rows[whichRows]}:${movie.seating.seats[whichSeats]}`); 
       console.log("Ticket price is £5");
-      
+
      const continueTo = readlineSync.keyInYN("Do you want to buy?: ");
+
+     if (continueTo === true) {
+       console.log(" ") // blank between log
+       console.log("Thank you for purchasing!")
+       console.log("Have a good movie time!") 
+       
+     }
+
+     else if (continueTo === false) {
+       mainMenu();
+       
+     }
     //  if (continueTo) {
     //    movie.ticketsSold.push(
     //      {
@@ -163,9 +177,6 @@ const confirmation = (movies, chooseOne) => {
     // }
     }    
   }
-  console.log(" ") // blank between log
-  console.log("Thank you for purchasing!")
-  console.log("Have a good movie time!")       
 
 }
 
