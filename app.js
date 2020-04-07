@@ -1,104 +1,145 @@
 const API = require("./lib/API");
 const readlineSync = require("readline-sync");
-
-
+const chalk = require("chalk");
 
 // user choose a movie from the option
-const chooseAMovie = (movies) =>{
-
-// show list of each movies
+const chooseAMovie = (movies) => {
+  // show list of each movies
   for (const movie of movies) {
-    console.log(`- ${movie.id}: ${movie.title}`);
+    console.log(chalk.bold.blue(`- ${movie.id}: ${movie.title}`));
   }
 
   //user selection for movie
-  console.log("                       ") // blank between question
-  const chooseOne = readlineSync.questionInt("Choose the number of the movie you want to watch: ")
-  console.log("----------------------------------------------") // blank between question
-
+  console.log(" "); // blank between question
+  const chooseOne = readlineSync.questionInt(
+    chalk.bold("Choose the number of the movie you want to watch: ")
+  );
+  console.log(
+    chalk.bold.yellow("----------------------------------------------")
+  ); // blank between question
 
   // if the API can't find that movie from chooseOne input
   // run chooseABook again after warning
   const movie = API.read("movies", chooseOne);
   if (movie !== undefined) {
-    chooseATime(movies, chooseOne);
-  }
-  else {
-    console.log(`***********************************
-                 * Sorry we don't have that option *
-                 * Please choose again from below  *
-                ***********************************`)
+    return chooseATime(movies, chooseOne);
+  } else {
+    console.log(
+      chalk.bold.red(`
+    ***********************************
+    * Sorry we don't have that option *
+    * Please choose again from below  *
+    ***********************************
+    `)
+    );
 
     return chooseAMovie(movies);
   }
-  
-}
+};
 
 let whatTime = [];
 
 // user choose the screen time from the movie they have chosen
-const chooseATime = (movies,chooseOne) => {
+const chooseATime = (movies, chooseOne) => {
   for (const movie of movies) {
     if (movie.id === chooseOne) {
       // user selection for screen time
-      whatTime = readlineSync.keyInSelect(movie.times, "What time do you want to watch?: ")   
-      console.log("                                 ") // blank between question
-    } 
- } // end of for loop
+      whatTime = readlineSync.keyInSelect(
+        movie.times,
+        chalk.bold("What time do you want to watch?: ")
+      );
+      console.log(" "); // blank between question
+    }
+  }
 
- // cancel button go back to movie list
+  // cancel button go back to movie list
   if (whatTime === -1) {
-    chooseAMovie(movies);
-   } // if time has been chose then go to select seat row
+    return chooseAMovie(movies);
+  } // if time has been chose then go to select seat row
   else if (whatTime !== undefined) {
-    chooseARow(movies, chooseOne);
-   }
-    
-}
+    return chooseARow(movies, chooseOne);
+  }
+};
 
-
-// user selection for seat row 
+// user selection for seat row
 let whichRows = [];
+const arrayRows = [];
 const chooseARow = (movies, chooseOne) => {
+  console.log(
+    chalk.bold.yellow(`    
+    ---------------------- SCREEN ----------------------- 
 
-  console.log(`    
-      ---------------------- SCREEN ----------------------- 
-   
-  ROW  A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9
-  ROW  B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9
-  ROW  C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9
-  ROW  D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9
-   
-  ROW  E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9
-  ROW  F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9
-  ROW  G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9`)
+ROW  A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9
+ROW  B:1 | B:2 | B:3 | B:4 | B:5 | B:6 | B:7 | B:8 | B:9
+ROW  C:1 | C:2 | C:3 | C:4 | C:5 | C:6 | C:7 | C:8 | C:9
+ROW  D:1 | D:2 | D:3 | D:4 | D:5 | D:6 | D:7 | D:8 | D:9
 
+ROW  E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9
+ROW  F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9
+ROW  G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9
+  `)
+  );
 
-
-  for (const movie of movies) {    
+  for (const movie of movies) {
     if (movie.id === chooseOne) {
-       whichRows = readlineSync.keyInSelect(movie.seating.rows, "Which ROW do you want?: ")
-    }    
-  } // end of for loop
+      // show list of ROW
+      const showRow = movie.seating.rows;
+      for (let i = 0; i < showRow.length; i++) {
+        const showRowElement = showRow[i];
+        console.log(chalk.bold(`--> ${showRowElement}`));
+      }
 
-  // cancel option, go back to movie list
-  if (whichRows === -1) {
-    chooseAMovie(movies);
+      //user selection for ROW
+      console.log(
+        chalk.bold.yellow("----------------------------------------------")
+      ); // blank between question
+      whichRows = readlineSync
+        .question(chalk.bold.blue("Type the alphabet of the ROW you want : "))
+        .toUpperCase();
+      // console.log(whichRows)
+      // console.log(arrayRows);
 
-    // if row has been selected go to seat selection
-  } else if (whichRows !== undefined) {
-      chooseASeat(movies, chooseOne);
-   }
+      // check if user typed ROW is valid == true case
+      for (let i = 0; i < showRow.length; i++) {
+        const showRowElement = showRow[i];
 
-}
+        // if user input alphabet is valid move to SEAT selection
+        if (whichRows == showRowElement) {
+          arrayRows.push(whichRows);
+          return chooseASeat(movies, chooseOne);
+        }
+      }
 
+      // check if user typed ROW is valid == false case
+      for (let i = 0; i < showRow.length; i++) {
+        const showRowElement = showRow[i];
 
-// user selection for seat 
+        // if user input is not valid go back to ROW selection
+        if (whichRows !== showRowElement) {
+          console.log(
+            chalk.bold.red(`
+
+    ***********************************
+    * Sorry we don't have that option *
+    * Please choose again from below  *
+    ***********************************`)
+          );
+
+          return chooseARow(movies, chooseOne);
+        }
+      }
+    }
+  }
+};
+
+// user selection for seat
 let whichSeats = [];
-const chooseASeat = (movies,chooseOne) => {
+const chooseASeat = (movies, chooseOne) => {
+  console.log(
+    chalk.bold.yellow(`
 
-  console.log(`
-  ---------------------- SCREEN ------------------------ 
+
+---------------------- SCREEN ------------------------ 
    
   SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT  SEAT 
    A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9
@@ -108,28 +149,92 @@ const chooseASeat = (movies,chooseOne) => {
    
    E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9
    F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9
-   G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9`)
-
-
+   G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9
+   `)
+  );
 
   for (const movie of movies) {
     if (movie.id === chooseOne) {
-      whichSeats = readlineSync.keyInSelect(movie.seating.seats, "Which SEAT do you want?: ");
+      whichSeats = readlineSync.keyInSelect(
+        movie.seating.seats,
+        chalk.bold("Which SEAT do you want?: ")
+      );
+      return checkSoldTicket(movies, chooseOne);
     }
   }
 
   // cancel option, go back to movie list
   if (whichSeats === -1) {
     chooseAMovie(movies);
-
-  // if seat has been choose go to confirmation
-  } else if (whichSeats !== undefined) {
-    confirmation(movies, chooseOne);
   }
-}
+};
 
+const checkSoldTicket = (movies, chooseOne) => {
+  for (const movie of movies) {
+    if (movie.id === chooseOne) {
+      //loop to check stored sold ticket
+      const soldTicket = movie.ticketsSold;
+      for (let i = 0; i < soldTicket.length; i++) {
+        const soldTicketElement = soldTicket[i];
+        //  console.log(soldTicketElement);  // return obj
+        // console.log(soldTicketElement["seat"]);
+        // console.log(soldTicketElement["seat"][0]);
+        // console.log(soldTicketElement["seat"][1]);
+
+        const storedTime = soldTicketElement["time"];
+
+        const timeWhat = movie.times;
+        for (let i = 0; i < timeWhat.length; i++) {
+          // console.log(soldTicketElement);  // return obj
+          console.log(soldTicketElement["seat"]);
+          console.log(soldTicketElement["seat"][0]);
+          // console.log(arrayRows);
+
+          // console.log(soldTicketElement["seat"][1]);
+          // console.log(whichSeats +1);
+
+          // console.log(storedTime);
+          // console.log(timeWhat[whatTime]);
+          console.log(arrayRows);
+
+          // if time& row& seat matches message SEAT TAKEN logged
+          if (
+            storedTime === timeWhat[whatTime] &&
+            soldTicketElement["seat"][1] === whichSeats + 1 //&&
+
+//*****************//when adding this it doesnt work************************** */
+            // soldTicketElement["seat"][0] === arrayRows !!! Adding this line wont work
+          ) {
+            // && soldTicketElement["seat"][0] === arrayRows
+            console.log(arrayRows);
+            console.log(soldTicketElement["seat"]);
+
+            console.log(`ST: ${storedTime}, TW: ${timeWhat[whatTime]}`);
+            console.log(arrayRows);
+
+            console.log(
+              chalk.bold.red(`
+                         This seat is already taken
+                         Please choose another one
+                         `)
+            );
+
+            return chooseARow(movies, chooseOne);
+          } else {
+            // if no match move to confirmation
+            return confirmation(movies, chooseOne);
+          }
+        }
+      }
+      return confirmation(movies, chooseOne);
+    }
+  }
+};
+
+// user confirm, to check what user selected at very end
 const confirmation = (movies, chooseOne) => {
-  console.log(`
+  console.log(
+    chalk.bold.yellow(`
   ---------------------- SCREEN ---------------------
               
   A:1 | A:2 | A:3 | A:4 | A:5 | A:6 | A:7 | A:8 | A:9
@@ -140,135 +245,102 @@ const confirmation = (movies, chooseOne) => {
   E:1 | E:2 | E:3 | E:4 | E:5 | E:6 | E:7 | E:8 | E:9
   F:1 | F:2 | F:3 | F:4 | F:5 | F:6 | F:7 | F:8 | F:9
   G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9
-               `)
-
+  `)
+  );
 
   for (const movie of movies) {
+    // display user previous selected options
     if (movie.id === chooseOne) {
-      console.log(movie.title);
-      console.log(movie.times[whatTime]);
-      console.log(`${movie.seating.rows[whichRows]}:${movie.seating.seats[whichSeats]}`); 
-      console.log("Ticket price is £5");
+      console.log(chalk.bold(movie.title));
+      console.log(chalk.bold(movie.times[whatTime]));
+      console.log(
+        chalk.bold(`${arrayRows}:${movie.seating.seats[whichSeats]}`)
+      );
+      console.log(chalk.bold("Ticket price is £5"));
 
-     const continueTo = readlineSync.keyInYN("Do you want to buy?: ");
+      const continueTo = readlineSync.keyInYNStrict(
+        chalk.bold("Do you want to buy?: ")
+      );
 
-     if (continueTo === true) {
-       console.log(" ") // blank between log
-       console.log("Thank you for purchasing!")
-       console.log("Have a good movie time!") 
-       
-     }
+      // if user choose y, push the selected time& row& seat to data
+      if (continueTo == true) {
+        movie.ticketsSold.push({
+          time: movie.times[whatTime],
+          seat: [arrayRows, movie.seating.seats[whichSeats]],
+        });
+        API.update("movies", movie);
 
-     else if (continueTo === false) {
-       mainMenu();
-       
-     }
-    //  if (continueTo) {
-    //    movie.ticketsSold.push(
-    //      {
-    //        time: movie.times[whatTime],
-    //        seat: [movie.seating.rows[whichRows],movie.seating.seats[whichSeats]]
-    //      });
-    //    API.update("movies",movie)
+        arrayRows.shift();
 
-    //  } else {
-    //   mainMenu();
-      
-    // }
-    }    
+        return console.log(
+          chalk.bold.yellow(`
+      Thank you for purchasing!
+       Have a good movie time!
+                  `)
+        );
+      }
+      // if user choose n, return to main menu
+      else if (continueTo == false) {
+        console.log(
+          chalk.bold.yellow(`
+      Thank you for coming!
+         Have a good day!`)
+        );
+
+        mainMenu();
+      }
+    }
   }
-
-}
-
+};
 
 const mainMenu = () => {
   const movies = API.read("movies");
 
-  console.log("                        ");
-  console.log("---------------------");
-  console.log(" --- Cinema.watch ---");
-  console.log("---------------------");
-  console.log("- 1. View  ticket");
-  console.log("- 2. Movie description");
-  console.log("----------------------");
+  console.log(
+    chalk.blue.bold(`                        
+  ---------------------
+   --- Cinema.watch ---
+  ---------------------
+  - 1. Choose  Movie
+  - 2. Movie Description
+  ----------------------`)
+  );
 
-  console.log("                  ")
-  const choose = readlineSync.question("Please choose 1 or 2: ");
-  console.log("                        ");
+  console.log(" ");
+  const choose = readlineSync.question(chalk.bold("Please choose 1 or 2: "));
+  console.log(" ");
 
-
-  if (choose === "1") { // show ticket
-    console.log("-----------------");
-    console.log("--- Our movie ---");
-    console.log("-----------------");
-    console.log("                 ");
-
-    // ageVerify();
+  if (choose === "1") {
+    // show movie list
+    console.log(
+      chalk.bold(`
+    -----------------
+    --- Our movie ---
+    -----------------
+    `)
+    );
 
     const movies = API.read("movies");
     chooseAMovie(movies);
 
-
-
     mainMenu();
-  } 
-  else if (choose === "2") {
-
+  } else if (choose === "2") {
     for (const movie of movies) {
-      console.log(`Title: ${movie.title}`);
+      console.log(chalk.bold(`Title: ${movie.title}`));
       console.log(`Age rating: ${movie.ageRating}`);
       console.log(`Duration: ${movie.duration}`);
       console.log(`Comments: ${movie.comments}`);
-      console.log("-------------------------")  
+      console.log("-------------------------");
     }
 
-    const backToMainMenu = readlineSync.question(`Press "0" to go back to main menu: `);
-    
+    const backToMainMenu = readlineSync.question(
+      chalk.bold(`Press "0" to go back to main menu: `)
+    );
 
     if (backToMainMenu === "0") {
       mainMenu();
     }
-
   }
-}
+};
 
 mainMenu();
-
-
-
-
-
-
-
-
-// junk code use in case of need
-
-// const ageVerify = () => {
-//   const howOld = readlineSync.parseInt("How old are you? ");
-
-//   if (howOld <= 12){
-//     console.log("You can choose from: ");
-
-//   }
-//   else if(howOld <= 16){
-//     console.log("You can choose from: ");
-//   }
-//   else {
-//     console.log("Any movie");
-//   }
-// }
-
-
-// const showMovieTicket = (movies) => {
-//   console.log(`--- ${movies.title} ---`);
-
-// }
-
-
-    // display movie title
-    // for (const movie of movies) {
-    //   console.log(movie["title"]);
-    // }
-
-    // const showMovie = showMovieTicket(movies);
-    // choseMovie(showMovie);
