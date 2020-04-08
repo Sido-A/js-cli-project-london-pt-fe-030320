@@ -4,6 +4,7 @@ const chalk = require("chalk");
 
 // user choose a movie from the option
 const chooseAMovie = (movies) => {
+
   // show list of each movies
   for (const movie of movies) {
     console.log(chalk.bold.blue(`- ${movie.id}: ${movie.title}`));
@@ -27,8 +28,11 @@ const chooseAMovie = (movies) => {
     console.log(
       chalk.bold.red(`
     ***********************************
+    *                                 *
     * Sorry we don't have that option *
+    *                                 *
     * Please choose again from below  *
+    *                                 *
     ***********************************
     `)
     );
@@ -55,7 +59,7 @@ const chooseATime = (movies, chooseOne) => {
   // cancel button go back to movie list
   if (whatTime === -1) {
     return chooseAMovie(movies);
-  } // if time has been chose then go to select seat row
+  } // if screen time has been chosen then go to select seat row
   else if (whatTime !== undefined) {
     return chooseARow(movies, chooseOne);
   }
@@ -82,7 +86,7 @@ ROW  G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9
 
   for (const movie of movies) {
     if (movie.id === chooseOne) {
-      // show list of ROW
+      // show list of ROWs
       const showRow = movie.seating.rows;
       for (let i = 0; i < showRow.length; i++) {
         const showRowElement = showRow[i];
@@ -96,25 +100,23 @@ ROW  G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9
       whichRows = readlineSync
         .question(chalk.bold.blue("Type the alphabet of the ROW you want : "))
         .toUpperCase();
-      // console.log(whichRows)
-      // console.log(arrayRows);
 
-      // check if user typed ROW is valid == true case
+      // check if user typed ROW is a valid alphabet (== true case)
       for (let i = 0; i < showRow.length; i++) {
         const showRowElement = showRow[i];
 
-        // if user input alphabet is valid move to SEAT selection
+        // if user input ROW is a valid alphabet move to SEAT selection
         if (whichRows == showRowElement) {
           arrayRows.push(whichRows);
           return chooseASeat(movies, chooseOne);
         }
       }
 
-      // check if user typed ROW is valid == false case
+      // check if user typed ROW is valid alphabet (== false case)
       for (let i = 0; i < showRow.length; i++) {
         const showRowElement = showRow[i];
 
-        // if user input is not valid go back to ROW selection
+        // if user input ROW is not a valid alphabet go back to ROW selection
         if (whichRows !== showRowElement) {
           console.log(
             chalk.bold.red(`
@@ -180,9 +182,6 @@ const checkSoldTicket = (movies, chooseOne) => {
       const soldTicket = movie.ticketsSold;
       for (let i = 0; i < soldTicket.length; i++) {
         const soldTicketElement = soldTicket[i];
-        //  console.log(soldTicketElement);  // return obj
-
-
         const storedTime = soldTicketElement["time"];
 
         const timeWhat = movie.times;
@@ -193,11 +192,8 @@ const checkSoldTicket = (movies, chooseOne) => {
           if (
             storedTime === timeWhat[whatTime] &&
             soldTicketElement["seat"][1] === whichSeats + 1 &&
-
-//*****************//when adding this it doesnt work************************** */
             soldTicketElement["seat"][0][0] === arrayRows[0] 
           ) {
-
             // console.log(`ST: ${storedTime}, TW: ${timeWhat[whatTime]}`);
 
             console.log(
@@ -210,15 +206,13 @@ const checkSoldTicket = (movies, chooseOne) => {
             *                            *
             * ****************************
                          `));
+              // clear the array before going back to ROW selection
               arrayRows.shift();
-
             return chooseARow(movies, chooseOne);
-          } else {
-            // if no match move to confirmation
-            // return confirmation(movies, chooseOne);
           }
         }
       }
+      // if no match move to confirmation
       return confirmation(movies, chooseOne);
     }
   }
@@ -242,6 +236,7 @@ const confirmation = (movies, chooseOne) => {
   );
 
   for (const movie of movies) {
+
     // display user previous selected options
     if (movie.id === chooseOne) {
       console.log(chalk.bold(movie.title));
@@ -262,23 +257,21 @@ const confirmation = (movies, chooseOne) => {
           seat: [arrayRows, movie.seating.seats[whichSeats]],
         });
         API.update("movies", movie);
-
+        // empty the array after updating the data
         arrayRows.shift();
 
         return console.log(
           chalk.bold.yellow(`
       Thank you for purchasing!
        Have a good movie time!
-                  `)
-        );
-      }
-      // if user choose n, return to main menu
-      else if (continueTo == false) {
+                  `));
+
+        // if user choose n, return to main menu
+      } else if (continueTo == false) {
         console.log(
           chalk.bold.yellow(`
       Thank you for coming!
-         Have a good day!`)
-        );
+         Have a good day!`));
 
         mainMenu();
       }
