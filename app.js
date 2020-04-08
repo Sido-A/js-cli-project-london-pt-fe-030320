@@ -120,8 +120,11 @@ ROW  G:1 | G:2 | G:3 | G:4 | G:5 | G:6 | G:7 | G:8 | G:9
             chalk.bold.red(`
 
     ***********************************
+    *                                 *
     * Sorry we don't have that option *
+    *                                 *
     * Please choose again from below  *
+    *                                 *
     ***********************************`)
           );
 
@@ -172,57 +175,47 @@ const chooseASeat = (movies, chooseOne) => {
 const checkSoldTicket = (movies, chooseOne) => {
   for (const movie of movies) {
     if (movie.id === chooseOne) {
+
       //loop to check stored sold ticket
       const soldTicket = movie.ticketsSold;
       for (let i = 0; i < soldTicket.length; i++) {
         const soldTicketElement = soldTicket[i];
         //  console.log(soldTicketElement);  // return obj
-        // console.log(soldTicketElement["seat"]);
-        // console.log(soldTicketElement["seat"][0]);
-        // console.log(soldTicketElement["seat"][1]);
+
 
         const storedTime = soldTicketElement["time"];
 
         const timeWhat = movie.times;
         for (let i = 0; i < timeWhat.length; i++) {
           // console.log(soldTicketElement);  // return obj
-          console.log(soldTicketElement["seat"]);
-          console.log(soldTicketElement["seat"][0]);
-          // console.log(arrayRows);
-
-          // console.log(soldTicketElement["seat"][1]);
-          // console.log(whichSeats +1);
-
-          // console.log(storedTime);
-          // console.log(timeWhat[whatTime]);
-          console.log(arrayRows);
 
           // if time& row& seat matches message SEAT TAKEN logged
           if (
             storedTime === timeWhat[whatTime] &&
-            soldTicketElement["seat"][1] === whichSeats + 1 //&&
+            soldTicketElement["seat"][1] === whichSeats + 1 &&
 
 //*****************//when adding this it doesnt work************************** */
-            // soldTicketElement["seat"][0] === arrayRows !!! Adding this line wont work
+            soldTicketElement["seat"][0][0] === arrayRows[0] 
           ) {
-            // && soldTicketElement["seat"][0] === arrayRows
-            console.log(arrayRows);
-            console.log(soldTicketElement["seat"]);
 
-            console.log(`ST: ${storedTime}, TW: ${timeWhat[whatTime]}`);
-            console.log(arrayRows);
+            // console.log(`ST: ${storedTime}, TW: ${timeWhat[whatTime]}`);
 
             console.log(
               chalk.bold.red(`
-                         This seat is already taken
-                         Please choose another one
-                         `)
-            );
+            ******************************
+            *                            *
+            * This seat is already taken *
+            *                            *
+            * Please choose another one  *
+            *                            *
+            * ****************************
+                         `));
+              arrayRows.shift();
 
             return chooseARow(movies, chooseOne);
           } else {
             // if no match move to confirmation
-            return confirmation(movies, chooseOne);
+            // return confirmation(movies, chooseOne);
           }
         }
       }
